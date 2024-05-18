@@ -1,0 +1,1443 @@
+#!/bin/bash
+#────────────────────────────────
+#  Version  : Arch Linux Install v.3.0.1
+#           :
+#  Author   : https://t.me/ecint
+#           :
+#  License  : LGPL-3.0 (http://opensource.org/licenses/lgpl-3.0.html)
+#           :
+#────────────────────────────────
+clear
+echo '
+
+
+
+
+
+
+
+
+
+                                                                            @ecint <3
+                                                                        Telegram - @exint
+
+
+
+
+
+
+
+'
+sleep 3
+clear
+echo '
+
+
+
+
+
+
+
+
+
+                                                                      ArchInstall v.3.0
+
+                                          <─────────────────────────────────────────────────────────────────────────>
+
+
+                                                 ██╗      ██████╗  █████╗ ██████╗ ██╗███╗   ██╗ ██████╗
+                                                 ██║     ██╔═══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔════╝
+                                                 ██║     ██║   ██║███████║██║  ██║██║██╔██╗ ██║██║  ███╗
+                                                 ██║     ██║   ██║██╔══██║██║  ██║██║██║╚██╗██║██║   ██║
+                                                 ███████╗╚██████╔╝██║  ██║██████╔╝██║██║ ╚████║╚██████╔╝██╗██╗██╗
+                                                 ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝╚═╝╚═╝
+
+
+                                            <─────────────────────────────────────────────────────────────────────────>
+'
+sed -i s/'#en_US.UTF-8'/'en_US.UTF-8'/g /etc/locale.gen
+echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
+setfont cyr-sun16
+locale-gen >/dev/null 2>&1; RETVAL=$?
+systemctl restart dhcpcd
+dhcpcd
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                          ─▄▀─▄▀
+                                                          ──▀──▀
+                                                          █▀▀▀▀▀█▄
+                                                          █░░░░░█─█     Welcome to the ArchLinux installer !
+                                                          ▀▄▄▄▄▄▀▀
+                                                ─────────────────────────────────────────────────────────────────
+
+
+                                                    Attention ! The script does NOT create partitions on the disk, you
+
+                                          create partitions yourself, so if you have not created partitions yet - create them.
+
+
+                                              ───────────────────────────────────────────────────────────────────────────
+
+'
+    echo -e "
+      \t                                                          -> Skip enter     1    "
+
+    echo -e "
+
+      \t                                                          -> To partition a disk, type   2     "
+
+    echo -n "
+
+                                                                   -> Enter a value : "
+
+      read main_menu
+      case "$main_menu" in
+         "1" ) clear
+           ;;
+         "2" ) clear ; echo '
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                               Welcome to the disk layout menu !
+
+                                                . ────────────────────────────────────────────────────────────.
+                                                .                                                             .
+                                                .                                                             .
+                                                .           Disk information will now be displayed            .
+                                                .                                                             .
+                                                .            Select the disk you want to partition            .
+                                                .                                                             .
+                                                .                                                             .
+                                                .      ** Disk name e.g. ( sda , sdb, sdc , nvme0n1 ) **      .
+                                                .                                                             .
+                                                .                                                             .
+                                                . ────────────────────────────────────────────────────────────.
+'
+sleep 2
+read -t 99999 -n 1 -s -r -p "
+                                                            -> Press Enter to continue <- "
+clear
+fdisk -l
+
+sleep 2
+read -t 99999 -n 1 -s -r -p "
+                                                            -> Press Enter to continue <- "
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                               .─────────────────────────────────────────────────────────────.
+                                               .                                                             .
+                                               .                                                             .
+                                               .          Enter the name of the disk to partition            .
+                                               .                                                             .
+                                               .                                                             .
+                                               ──────────────────────────────────────────────────────────────
+'
+read -p "
+                                                              -> Enter a value : " namedisk
+cfdisk --zero /dev/$namedisk
+      esac
+clear
+echo "
+
+
+
+
+
+
+
+
+                                                                 Time zone setting
+
+                                              .──────────────────────────────────────────────────────────────.
+                                              .                                                              .
+                                              .                                                              .
+                                              .  Setting the region configures the time zone and time        .
+                                              .                                                              .
+                                              .                      according to the specified region       .
+                                              .                                                              .
+                                              .  You can look up the name of the region in the list of       .
+                                              .                                                              .
+                                              .  regions or enter it manually, if you already know it,      .
+                                              .                                                              .
+                                              .                  in this format --> /Europe/Moscow           .
+                                              .                                                              .
+                                              .                                                              .
+                                              .──────────────────────────────────────────────────────────────.
+"
+read -p"
+                                                          -> Enter a value : " region
+
+clear
+echo "
+
+
+
+
+
+
+
+
+
+
+
+                                                    Selecting a Disk for GRUB Installation
+
+                                            .─────────────────────────────────────────────────────────────.
+                                            .                                                             .
+                                            .                                                             .
+                                            .        ** Essential for GRUB loader installation **         .
+                                            .                                                             .
+                                            .                                                             .
+                                            .         Information about the disks will be displayed now   .
+                                            .                                                             .
+                                            .   Choose the disk on which the system will be installed     .
+                                            .                                                             .
+                                            .            For example (sda, sdb, sdc, nvme0n1)             .
+                                            .                                                             .
+                                            .                                                             .
+                                            . ────────────────────────────────────────────────────────────.
+
+"
+sleep 2
+read -t 99999 -n 1 -s -r -p "
+                                                           -> Press Enter to continue <- "
+clear
+fdisk -l
+
+sleep 2
+read -t 99999 -n 1 -s -r -p "
+                                                           -> Press Enter to continue <- "
+
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                            Selecting a Disk for GRUB Installation
+
+                                              .─────────────────────────────────────────────────────────────.
+                                              .                                                             .
+                                              .                                                             .
+                                              .           Enter the name of the disk to partition           .
+                                              .                                                             .
+                                              .         ** Essential for GRUB loader installation **        .
+                                              .                                                             .
+                                              .           For example ( sda , sdb, sdc , nvme0n1 )          .
+                                              .                                                             .
+                                              .                                                             .
+                                               ──────────────────────────────────────────────────────────────
+'
+read -p "
+                                                               -> Enter a value : " disk
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                  Your SSD or HDD disk
+
+                                              .─────────────────────────────────────────────────────────────.
+                                              .                                                             .
+                                              .                                                             .
+                                              .       Choose your option of what kind of disk you have      .
+                                              .                                                             .
+                                              .                                                             .
+                                               ──────────────────────────────────────────────────────────────
+'
+  echo -e "
+
+      \t                                                -> SSD - Nvme - m2 - usb_flash  (   1   )  "
+
+    echo -e "
+
+      \t                                                    ->       HDD        (   2   )  "
+
+    echo -n "
+
+                                                           -> Enter a value : "
+
+      read main_menu
+      case "$main_menu" in
+         "1" ) clear ;
+         sub='rw,noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol'
+           ;;
+         "2" ) clear ;
+         sub='rw,relatime,space_cache=v2,autodefrag,nodatacow,subvol'
+      esac
+
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+                                                                      Select partition
+
+                                                .────────────────────────────────────────────────────────────.
+                                                .                                                            .
+                                                .                                                            .
+                                                .               Enter one of the values 1 or 2               .
+                                                .                                                            .
+                                                .           To proceed to mounting the disk partitions       .
+                                                .                                                            .
+                                                .                                                            .
+                                                .────────────────────────────────────────────────────────────.
+'
+    echo -e "
+
+      \t                                                -> To mount partitions, enter    1   "
+
+    echo -e "
+
+      \t                                               -> To show a hint about the sections, enter   2   "
+
+    echo -n "
+
+                                                           -> Enter a value : "
+
+      read main_menu
+      case "$main_menu" in
+         "1" ) clear
+           ;;
+         "2" ) clear ;
+fdisk -l
+sleep 2
+read -t 99999 -n 1 -s -r -p "
+                                                          -> Press Enter to continue <- "
+      esac
+
+echo '
+
+
+
+
+
+
+
+
+
+
+                                                                    Select partition
+
+                                     .────────────────────────────────────────────────────────────────────────────────.
+                                     .                                                                                .
+                                     .                          Enter the disk partitions                             .
+                                     .                                                                                .
+                                     .                   (Root- Root)  (Boot- Bootable) (Swap- Swap)                  .
+                                     .                                                                                .
+                                     .                                                                                .
+                                     .                   For example ( sda2, sdb2, sdc2 , nvme0n1p2 )                 .
+                                     .                                                                                .
+                                     .                                                                                .
+                                     . ** Attention! If you have not created a swap or home, leave the field empty.** .
+                                     .                                                                                .
+                                     . For Regular Bios, and installation in one partition, leave the boot field empty.
+                                     .                                                                                .
+                                     .────────────────────────────────────────────────────────────────────────────────.
+
+'
+read -p "
+                                                                  -> Boot: " boot
+read -p "
+                                                                  -> Root: " root
+read -p "
+                                                                  -> Swap: " swap
+read -p "
+                                                                  -> Home: " home
+
+clear
+
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                            Selecting the Boot Partition file system
+
+                                                .─────────────────────────────────────────────────────────────.
+                                                .                                                             .
+                                                .                                                             .
+                                                .        Select the file system of the boot partition         .
+                                                .                                                             .
+                                                .  According to your Bios version (regular old BIOS or UEFI)  .
+                                                .                                                             .
+                                                .   FAT32 format for UEFI . For a regular Ext4 or Ext2 BIOS   .
+                                                .                                                             .
+                                                .                                                             .
+                                                .─────────────────────────────────────────────────────────────.
+'
+echo -e "\t
+                                                     -> For UEFI, enter     (  1  )  "
+echo -e "\t
+
+                                                     -> Do not format enter    (  2  )
+
+                                                      ( To install on the same DOS/MBR partition or next to Windows )"
+echo -e "\t
+
+
+                                                     -> For a regular Bios, format to Ext4, enter   (  3  ) "
+echo -e "\t
+
+                                                     -> For a regular Bios, format to Ext2, enter    (  4  ) "
+echo -n "
+
+
+                                                         -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+         "1" ) clear ; mkfs.vfat -F32 /dev/$boot
+         ;;
+         "3" ) clear ; mkfs.ext4 /dev/$boot
+         ;;
+         "4" ) clear ; mkfs.ext2 /dev/$boot
+         ;;
+         "2" ) clear
+      esac
+
+clear
+
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                           Selecting the file system of the root partition
+
+                                                      .───────────────────────────────────────────────────────.
+                                                      .                                                       .
+                                                      .                                                       .
+                                                      .      Select the file system of the Root partition     .
+                                                      .                                                       .
+                                                      .                     Btrfs or Ext4                     .
+                                                      .                                                       .
+                                                      .                                                       .
+                                                      .───────────────────────────────────────────────────────.
+
+                                                              -> To skip this step, press Enter <-
+'
+echo -e "\t
+
+                                                           -> To format in Btrfs, enter    1    "
+echo -e "\t
+
+
+                                                           -> To format in Ext4, enter    2    "
+echo -n "
+
+                                                              -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+         "1" ) clear ; mkfs.btrfs -f /dev/$root
+         ;;
+         "2" ) clear ; mkfs.ext4 /dev/$root
+      esac
+
+clear
+mkswap /dev/$swap
+swapon /dev/$swap
+
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+                                                         Selecting the file system of the Home partition
+
+                                                    .───────────────────────────────────────────────────────.
+                                                    .                                                       .
+                                                    .                                                       .
+                                                    .     Select the file system of the Home partition      .
+                                                    .                                                       .
+                                                    .                    Btrfs or Ext4                      .
+                                                    .                                                       .
+                                                    .                                                       .
+                                                    .───────────────────────────────────────────────────────.
+
+                                                              -> To skip this step, press Enter <-
+'
+echo -e "\t
+
+                                                          -> To format in Btrfs, enter    1    "
+echo -e "\t
+
+
+                                                          -> To format in Ext4, enter    2    "
+echo -n "
+
+                                                             -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+         "1" ) clear ; mkfs.btrfs -f /dev/$home
+         ;;
+         "2" ) clear ; mkfs.ext4 /dev/$home
+      esac
+
+clear
+
+echo '
+
+
+
+
+
+
+
+
+
+                                                                       Mounting partitions
+
+                                                    .───────────────────────────────────────────────────────.
+                                                    .                                                       .
+                                                    .                                                       .
+                                                    .          Select one of the mounting options           .
+                                                    .                                                       .
+                                                    .                                                       .
+                                                    .───────────────────────────────────────────────────────.
+'
+echo -e "\t
+
+                                                         ->    Btrfs ( WITHOUT home ) enter  (  1  )   "
+echo -e "\t
+
+
+                                                         ->    Ext4 ( WITHOUT home ) enter   (  2  )   "
+echo -e "\t
+
+
+                                                          -> Mount Home enter   (  3  )   "
+
+echo -n "
+                                                            -> Enter a value : "
+
+read main_menu
+      case "$main_menu" in
+        "1") clear ;
+mount  /dev/$root /mnt
+
+btrfs su cr /mnt/@
+
+btrfs su cr /mnt/@home
+
+btrfs su cr /mnt/@var
+
+btrfs su cr /mnt/@log
+
+btrfs su cr /mnt/@pkg
+
+btrfs su cr /mnt/@.snapshots
+
+umount -R /mnt
+
+mount -o ${sub}=@ /dev/$root /mnt
+
+mkdir -p /mnt/{boot,home,var,var/log,var/cache/pacman/pkg,.snapshots}
+
+mount -o ${sub}=@home /dev/$root /mnt/home
+
+mount -o ${sub}=@var /dev/$root /mnt/var
+
+mount -o ${sub}=@log /dev/$root /mnt/var/log
+
+mount -o ${sub}=@pkg /dev/$root /mnt/var/cache/pacman/pkg
+
+mount -o ${sub}=@.snapshots /dev/$root /mnt/.snapshots
+         ;;
+         "2" ) clear ;
+mount  /dev/$root /mnt
+mkdir /mnt/boot
+        ;;
+        "3" ) clear ; echo '
+
+
+
+
+
+
+
+
+
+                                                                 Mounting the home partition
+
+                                                    .───────────────────────────────────────────────────────.
+                                                    .                                                       .
+                                                    .                                                       .
+                                                    .           Select one of the mounting options          .
+                                                    .                                                       .
+                                                    .                                                       .
+                                                    .───────────────────────────────────────────────────────.
+'
+echo -e "\t
+
+                                                             -> Mount Home in Btrfs    1    "
+echo -e "\t
+
+
+                                                             -> Mount Home in Ext4     2    "
+
+
+echo -n "
+                                                                -> Enter a value : "
+
+read main_menu
+      case "$main_menu" in
+         "1" ) clear ;
+mount  /dev/$root /mnt
+
+btrfs su cr /mnt/@
+
+btrfs su cr /mnt/@home
+
+btrfs su cr /mnt/@var
+
+btrfs su cr /mnt/@log
+
+btrfs su cr /mnt/@pkg
+
+btrfs su cr /mnt/@.snapshots
+
+umount -R /mnt
+
+mount -o ${sub}=@ /dev/$root /mnt
+
+mkdir -p /mnt/{boot,home,var,var/log,var/cache/pacman/pkg,.snapshots}
+
+mount /dev/$home /mnt/home
+
+mount -o ${sub}=@var /dev/$root /mnt/var
+
+mount -o ${sub}=@log /dev/$root /mnt/var/log
+
+mount -o ${sub}=@pkg /dev/$root /mnt/var/cache/pacman/pkg
+
+mount -o ${sub}=@.snapshots /dev/$root /mnt/.snapshots
+         ;;
+         "2" ) clear ;
+mount  /dev/$root /mnt
+mkdir /mnt/home
+mkdir /mnt/boot
+mount /dev/$home /mnt/home
+      esac
+
+        esac
+
+clear
+
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                    Mounting a boot partition
+
+                                                  .───────────────────────────────────────────────────────────.
+                                                  .                                                           .
+                                                  .                                                           .
+                                                  .               Mounting the boot partition!                .
+                                                  .                                                           .
+                                                  . Select one of the options for mounting the boot partition .
+                                                  .                                                           .
+                                                  .       For a regular bios (NOT UEFI), enter   2            .
+                                                  .                                                           .
+                                                  .             For the UEFI bios, enter   1                  .
+                                                  .                                                           .
+                                                  .      Without the DOS/MBR boot partition, enter     3      .
+                                                  .                                                           .
+                                                  .                                                           .
+                                                  .───────────────────────────────────────────────────────────.
+'
+echo -e "\t
+                                                             -> For UEFI or EFI, enter   (  1  )    "
+echo -e "\t
+
+                                                             -> For a regular Bios, enter  (  2  ) "
+
+echo -e "\t
+                                                             -> Without a DOS/MBR boot partition   (  3  )
+
+                                                            (If you install everything in one partition for MBR) "
+echo -n "
+
+                                                               -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+         "1" )
+         mkdir /mnt/boot/efi ; mount /dev/$boot /mnt/boot/efi
+         Uefi="grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ShefOS --no-nvram --removable /dev/$disk"
+         ;;
+         "2" )
+         mount /dev/$boot  /mnt/boot/
+         BIOS="grub-install /dev/$disk"
+         ;;
+         "3" )
+         clear
+         BBOOT="grub-install /dev/$disk"
+      esac
+
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                      The root password
+
+                                                 .───────────────────────────────────────────────────────────.
+                                                 .                                                           .
+                                                 .                                                           .
+                                                 .                 Write the Root password !                 .
+                                                 .                                                           .
+                                                 .             Attention! Remember the "root" login          .
+                                                 .                                                           .
+                                                 .              The password that you write now              .
+                                                 .                                                           .
+                                                 .───────────────────────────────────────────────────────────.
+'
+read -p "
+                                                           -> Enter the root password :  " password
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                          User account
+
+                                                 .───────────────────────────────────────────────────────────.
+                                                 .                                                           .
+                                                 .                                                           .
+                                                 .                 Enter your account name !!!               .
+                                                 .                                                           .
+                                                 .                                                           .
+                                                 .───────────────────────────────────────────────────────────.
+'
+read -p "
+                                                       -> Enter the account name :  " username
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                The password of the user account
+
+                                                 .───────────────────────────────────────────────────────────.
+                                                 .                                                           .
+                                                 .                                                           .
+                                                 .               Enter your account password !!!             .
+                                                 .                                                           .
+                                                 .                                                           .
+                                                 .───────────────────────────────────────────────────────────.
+'
+read -p "
+                                                       -> Enter the user's password :  " userpassword
+clear
+
+echo '
+
+
+
+
+
+
+
+
+
+                                                                    Choosing the Linux core
+
+                                                .──────────────────────────────────────────────────────────────.
+                                                .                                                              .
+                                                .                                                              .
+                                                .  Select one of the kernel options to install the system :    .
+                                                .                                                              .
+                                                .   -> With a regular Linux kernel - введите 1                       .
+                                                .                                                              .
+                                                .   -> With a productive Linux-zen kernel - введите 2          .
+                                                .                                                              .
+                                                .   -> With Linux-lts enhanced stability kernel - введите 3    .
+                                                .                                                              .
+                                                .                                                              .
+                                                .──────────────────────────────────────────────────────────────.
+'
+echo -e "\t
+                                                                     -> Linux ( 1 ) "
+echo -e "\t
+
+                                                                     -> Linux-zen ( 2 )"
+echo -e "\t
+
+                                                                     -> Linux-lts ( 3 )"
+echo -n "
+
+                                                                     -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+
+         "1" ) kernel='pacstrap -i /mnt base base-devel linux linux-headers linux-firmware dosfstools btrfs-progs intel-ucode amd-ucode iucode-tool archlinux-keyring bluez bluez-utils nano vim dhcpcd dhclient networkmanager --noconfirm'
+         ;;
+         "2" ) kernel='pacstrap -i /mnt base base-devel linux-zen linux-zen-headers linux-firmware dosfstools btrfs-progs intel-ucode amd-ucode iucode-tool archlinux-keyring bluez bluez-utils nano vim dhcpcd dhclient networkmanager --noconfirm'
+         ;;
+         "3" ) kernel='pacstrap -i /mnt base base-devel linux-lts linux-lts-headers linux-firmware dosfstools btrfs-progs intel-ucode amd-ucode iucode-tool archlinux-keyring bluez bluez-utils nano vim dhcpcd dhclient networkmanager --noconfirm'
+      esac
+
+clear
+
+echo '
+
+
+
+
+
+
+
+
+
+
+                              ____________________¶¶¶¶¶¶¶
+                              ___________________¶¶
+                              __________________¶¶
+                              _________________¶¶
+                              ________________¶¶                     Welcome to the desktop setup menu
+                              _______________¶¶
+                              ____$$$$$$$$$$$$$$$$$$                          (graphical shell)
+                              _____$_______________$       ────────────────────────────────────────────────────────>
+                              ______$________ZZZZ$
+                              _______$_____ZZZZZ$
+                              ________$__ZZZZZZ$
+                              _________$ZZZZZZ$             Here you can select the drivers for your graphics card
+                              __________$ZZZZ$
+                              ___________$ZZ$
+                              ____________$$               ────────────────────────────────────────────────────────>
+                              ___________ $$$
+                              __________$$$$$$
+                              ________$$$$$$$$$$               And install the graphical shell ( desktop )
+                              _____$$$$$$$$$$$$$$
+
+                           ────────────────────────────────────────────────────────────────────────────────────────────────────>
+'
+    echo -e "
+
+      \t                                             -> To install the graphical shell, enter     1     "
+
+
+    echo -e "
+
+      \t                                             -> DO NOT install the graphical shell.    2     "
+
+
+    echo -n "
+                                                             -> Enter a value : "
+
+      read main_menu
+      case "$main_menu" in
+         "1" ) clear ;
+echo '
+
+
+
+
+
+
+                                                                      Video Card Drivers
+
+                                             .─────────────────────────────────────────────────────────────────.
+                                             .                                                                 .
+                                             .                                                                 .
+                                             .         Welcome to the graphics driver installation menu        .
+                                             .                                                                 .
+                                             .       The drivers for your graphics card will be installed      .
+                                             .                                                                 .
+                                             .        Then there will be a selection of graphical shells!      .
+                                             .                                                                 .
+                                             .                                                                 .
+                                             .─────────────────────────────────────────────────────────────────.
+
+'
+echo -e "\t
+                                                           -> For graphics Intel enter ( 1 ) "
+echo -e "\t
+
+
+                                                           -> For graphics AMD enter   ( 2 )  "
+
+echo -e "\t
+
+                                                           -> For graphics NVIDIA enter ( 3 ) "
+
+echo -e "\t
+
+                                                           -> Manual driver installation Nvidia ( 4 ) "
+
+echo -e "\t
+
+                                                          -> To install the hybrid graphics driver
+                                                            For example INTEL + NVIDIA , AMD + NVIDIA и т.д  ( 5 ) "
+echo -n "
+
+                                                            -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+         "1" ) graphc_drivers='pacstrap -i /mnt mesa mesa-demos xf86-video-intel lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader network-manager-applet libva-intel-driver lib32-libva-intel-driver --noconfirm'
+        ;;
+         "2" ) graphc_drivers='pacstrap -i /mnt xf86-video-ati xf86-video-amdgpu mesa mesa-demos lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader amdvlk lib32-amdvlk network-manager-applet --noconfirm'
+        ;;
+         "3" )
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                                      Welcome to the NVIDIA driver installation menu
+
+                                                .───────────────────────────────────────────────────────.
+                                                .                                                       .
+                                                .       There are two options for installing drivers    .
+                                                .                                                       .
+                                                .   Open source driver and proprietary driver           .
+                                                .                                                       .
+                                                .   The open source driver is better for older          .
+                                                .                                                       .
+                                                .   graphics cards, up to the Kepler architecture,      .
+                                                .                                                       .
+                                                .   while the proprietary driver is better for newer    .
+                                                .                                                       .
+                                                .   graphics cards. Choose your option                  .
+                                                .                                                       .
+                                <───────────────────────────────────────────────────────────────────────────────────>
+
+                              Installing the driver does not guarantee that everything will work well on the first try.
+
+                                        Nvidia does not disclose its code for writing proper drivers,
+
+                                therefore, it is impossible to guarantee that the driver will work after installation!!!
+
+                                <───────────────────────────────────────────────────────────────────────────────────>
+
+'
+echo -e "\t
+
+
+                                                      ->  Install a proprietary driver     1     "
+echo -e "\t
+
+
+                                                       ->  Install the Open source driver      2    "
+echo -n "
+
+                                                          -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+       "1" )
+       graphc_drivers='pacstrap -i /mnt vulkan-icd-loader lib32-vulkan-icd-loader nvidia-dkms nvidia-utils lib32-nvidia-utils vulkan-icd-loader lib32-vulkan-icd-loader lib32-opencl-nvidia opencl-nvidia network-manager-applet nvidia-settings --noconfirm'
+       #nvidia_driver="mhwd -a pci nonfree 0300"
+       ;;
+       "2" ) graphc_drivers='pacstrap -i /mnt vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-nouveau nvidia-utils lib32-nvidia-utils vulkan-icd-loader lib32-vulkan-icd-loader lib32-opencl-nvidia opencl-nvidia network-manager-applet nvidia-settings --noconfirm'
+     esac
+        ;;
+        "4" ) clear
+#clear
+#echo '
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#                                               Welcome to the NVIDIA Drivers Manual Installation Menu
+#
+#                                          <─────────────────────────────────────────────────────────────────>
+#
+#                                           Here you will be shown a list of Nvidia drivers available for installation
+#
+#                                              Next, you will need to enter the name of the driver to install
+#
+#                                               For example, the driver video-nvidia, and type it in the input field
+#
+#                                    <───────────────────────────────────────────────────────────────────────────────────>
+#
+#                                   Installing the driver does not guarantee that everything will work well on the first try.
+#
+#                                              Nvidia does not disclose its code for writing proper drivers,
+#
+#                                   therefore, it is impossible to guarantee that the driver will work after installation!!!
+#
+#                                      <────────────────────────────────────────────────────────────────────────────────>
+#'
+#echo -e "\t
+#
+#                                                             ->   Continue    1     "
+#
+#echo -n "
+#
+#                                                             -> Enter a value : "
+#read main_menu
+#      case "$main_menu" in
+#         "1" )
+#         clear ; mhwd --list
+#         read -p "
+#                                                           -> Enter a value : " namedriver
+#
+#         hwddriver='mhwd --install pci $namedriver'
+#      esac
+#
+        ;;
+        "5" )
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+                                             Welcome to the Hybrid Graphics Driver Installation Menu
+
+                                  .─────────────────────────────────────────────────────────────────────────────────────.
+                                  .                                                                                     .
+                                  . Installing the Nvidia driver does not guarantee that everything will work well on   .
+                                  .                                                                                     .
+                                  . the first try.                                                                     .
+                                  .                                                                                     .
+                                  . Nvidia does not disclose its code for writing proper drivers,                        .
+                                  .                                                                                     .
+                                  . therefore, it is impossible to guarantee that the driver will work after            .
+                                  .                                                                                     .
+                                  . installation!!!                                                                     .
+                                  .                                                                                     .
+                                   ──────────────────────────────────────────────────────────────────────────────────────
+'
+echo -e "\t
+
+                                                       ->  INTEL + AMD      1     "
+
+echo -e "\t
+                                                       ->  INTEL + NVIDIA ( Proprietary driver  Nvidia )     2    "
+echo -e "\t
+
+                                                       ->  INTEL + NVIDIA ( Open source driver Nvidia )     3    "
+
+echo -e "\t
+                                                       ->  AMD + NVIDA   ( Proprietary driver  Nvidia )    4    "
+
+echo -e "\t
+                                                       ->  AMD + NVIDA   ( Open source driver Nvidia )    5    "
+echo -n "
+
+
+                                                        -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+       "1" )
+       graphc_drivers='pacstrap -i /mnt mesa mesa-demos xf86-video-intel lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader network-manager-applet libva-intel-driver lib32-libva-intel-driver xf86-video-ati xf86-video-amdgpu mesa mesa-demos lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader amdvlk lib32-amdvlk lib32-vulkan-icd-loader --noconfirm'
+       ;;
+       "2" )
+       graphc_drivers='pacstrap -i /mnt xf86-video-intel vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader network-manager-applet libva-intel-driver lib32-libva-intel-driver nvidia-dkms nvidia-settings nvidia-prime --noconfirm'
+       #nvidia_driver="mhwd -a pci nonfree 0300"
+       #optimus="systemctl enable optimus-manager"
+       ;;
+       "3" )
+       graphc_drivers='pacstrap -i /mnt xf86-video-intel vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader network-manager-applet libva-intel-driver lib32-libva-intel-driver xf86-video-nouveau nvidia-utils lib32-nvidia-utils vulkan-icd-loader lib32-vulkan-icd-loader lib32-opencl-nvidia opencl-nvidia nvidia-settings nvidia-prime --noconfirm'
+       ;;
+       "4" )
+       graphc_drivers='pacstrap -i /mnt xf86-video-ati xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader network-manager-applet amdvlk lib32-amdvlk nvidia-dkms nvidia-settings nvidia-prime --noconfirm'
+       #nvidia_driver="mhwd -a pci nonfree 0300"
+       #optimus="systemctl enable optimus-manager"
+       ;;
+       "5" )
+       graphc_drivers='pacstrap -i /mnt xf86-video-ati xf86-video-amdgpu  vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader vulkan-icd-loader lib32-vulkan-icd-loader xf86-video-nouveau nvidia-utils lib32-nvidia-utils vulkan-icd-loader lib32-vulkan-icd-loader lib32-opencl-nvidia opencl-nvidia  amdvlk lib32-amdvlk network-manager-applet nvidia-settings nvidia-prime --noconfirm'
+       #optimus="systemctl enable optimus-manager"
+      esac
+
+      esac
+clear
+
+echo '
+
+
+
+
+
+
+
+                                                                           Graphical shell
+
+                                                    .────────────────────────────────────────────────────────.
+                                                    .                                                        .
+                                                    .                                                        .
+                                                    .              Now choose one of the options             .
+                                                    .                                                        .
+                                                    .         To install the graphical shell you need        .
+                                                    .                                                        .
+                                                    .                                                        .
+                                                    .────────────────────────────────────────────────────────.
+'
+echo -e "\t
+                                                            -> To install KDE enter ( 1 ) "
+echo -e "\t
+
+                                                            -> To install GNOME enter ( 2 ) "
+echo -e "\t
+
+                                                            -> To install XFCE enter ( 3 ) "
+echo -e "\t
+
+                                                             -> To install I3 enter ( 4 ) "
+echo -e "\t
+
+                                                             -> To install Lxqt enter ( 5 ) "
+echo -e "\t
+
+                                                          -> To install KDE lightweight enter ( 6 )
+
+                                                                Without a package kde-applicatios          "
+echo -e "\t
+
+                                                          -> To install GNOME lightweight enter ( 7 )
+
+                                                                Without a package gnome-extra                   "
+echo -e "\t
+
+                                                            -> To install Cinnamon enter ( 8 ) "
+echo -e "\t
+
+                                                             -> To install MATE enter ( 9 ) "
+echo -n "
+
+
+                                                               -> Enter a value : "
+read main_menu
+      case "$main_menu" in
+         "1" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server xorg-xwayland plasma cups kde-applications kmix discover cups sddm sddm-kcm firefox packagekit-qt5 bluez bluez-utils --noconfirm'
+
+displaymanager='systemctl enable sddm --force'
+        ;;
+         "2" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server gnome cups gnome-extra firefox gdm --noconfirm'
+
+displaymanager='systemctl enable gdm --force'
+        ;;
+         "3" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server xfce4 cups xfce4-goodies lightdm firefox cups lightdm-gtk-greeter pavucontrol gvfs gvfs-mtp thunar-volman network-manager-applet bluez bluez-utils pulseaudio --noconfirm'
+
+displaymanager='systemctl enable lightdm --force'
+        ;;
+         "4" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server xorg-xinit cups xdg-utils xdg-user-dirs cups i3-gaps i3blocks i3status dmenu rofi xfce4-terminal firefox nitrogen picom network-manager-applet blueman bluez bluez-utils gvfs gvfs-mtp pcmanfm --noconfirm'
+         ;;
+         "5" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server xdg-user-dirs cups xdg-utils firefox cups pcmanfm lxqt breeze-icons sddm sddm-kcm bluez gvfs gvfs-mtp bluez-utils --noconfirm'
+
+displaymanager='systemctl enable sddm --force'
+          ;;
+          "6" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server xorg-xwayland plasma cups konsole dolphin kmix discover cups sddm sddm-kcm firefox packagekit-qt5 bluez bluez-utils --noconfirm'
+
+displaymanager='systemctl enable sddm --force'
+          ;;
+          "7")
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt xorg xorg-server gnome cups nautilus firefox gnome-terminal firefox gdm --noconfirm'
+
+displaymanager='systemctl enable gdm --force'
+         ;;
+         "8" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt cinnamon gnome-terminal parcellite firefox gvfs gvfs-mtp pcmanfm lightdm lightdm-slick-greeter bluez-utils --noconfirm'
+
+displaymanager='systemctl enable lightdm --force'
+
+slick='arch-chroot'
+          ;;
+          "9" )
+update='pacman -Syy'
+
+desktop='pacstrap -i /mnt mate mate-extra dconf-editor lightdm lightdm-slick-greeter gvfs pcmanfm gvfs-mtp bluez bluez-utils --noconfirm'
+
+displaymanager='systemctl enable lightdm --force'
+      esac
+           ;;
+         "2" ) clear ;
+      esac
+
+#----------------------------------------------------------------------|
+#                                                      #
+#                         Pacman                       #
+#                                                      #
+#----------------------------------------------------------------------|
+clear
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+sed -i s/'#ParallelDownloads = 5'/'ParallelDownloads = 5'/g /etc/pacman.conf
+sed -i s/'#VerbosePkgLists'/'VerbosePkgLists'/g /etc/pacman.conf
+sed -i s/'#Color'/'ILoveCandy'/g /etc/pacman.conf
+echo '
+
+
+
+
+
+
+
+
+
+───────────────────────────────────────────────────────────────|
+──────────────────────
+────────────────────── ██████╗  █████╗  ██████╗███╗   ███╗ █████╗ ███╗   ██╗
+────────────────────── ██╔══██╗██╔══██╗██╔════╝████╗ ████║██╔══██╗████╗  ██║
+──▒▒▒▒▒────▄████▄───── ██████╔╝███████║██║     ██╔████╔██║███████║██╔██╗ ██║
+─▒─▄▒─▄▒──███▄█▀────── ██╔═══╝ ██╔══██║██║     ██║╚██╔╝██║██╔══██║██║╚██╗██║
+─▒▒▒▒▒▒▒─▐████──█──█── ██║     ██║  ██║╚██████╗██║ ╚═╝ ██║██║  ██║██║ ╚████║
+─▒▒▒▒▒▒▒──█████▄────── ╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+─▒─▒─▒─▒───▀████▀─────────────────────────────────────────────────────────────────|
+
+                       Please wait, the package download is being configured,
+
+                                  It will take a couple of moments. ) .......
+
+              ─────────────────────────────────────────────────────────────────────────────────────|
+'
+sleep 4
+pacman -Syy reflector archlinux-keyring --noconfirm
+reflector --sort rate -l 20 --save /etc/pacman.d/mirrorlist
+pacman -Syy
+#---------------PACSTRAP-----------------------------------------------
+${kernel}
+#------------------------------------------------------------------------
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt /bin/bash -c "ln -sf /usr/share/zoneinfo/$region /etc/localtime"
+arch-chroot /mnt /bin/bash -c "hwclock --systohc"
+arch-chroot /mnt /bin/bash -c "sed -i s/'#en_US.UTF-8'/'en_US.UTF-8'/g /etc/locale.gen"
+arch-chroot /mnt /bin/bash -c "locale-gen"
+arch-chroot /mnt /bin/bash -c "echo 'LANG=en_US.UTF-8' > /etc/locale.conf"
+arch-chroot /mnt /bin/bash -c "echo 'KEYMAP=us' > /etc/vconsole.conf"
+arch-chroot /mnt /bin/bash -c "echo 'FONT=cyr-sun16' >> /etc/vconsole.conf"
+arch-chroot /mnt /bin/bash -c "echo 'ARCH' > /etc/hostname"
+arch-chroot /mnt /bin/bash -c "echo '127.0.0.1 localhost' > /etc/hosts"
+arch-chroot /mnt /bin/bash -c "echo '::1       localhost' >> /etc/hosts"
+arch-chroot /mnt /bin/bash -c "echo '127.0.0.1 ARCH.localdomain ARCH' >> /etc/hosts"
+arch-chroot /mnt /bin/bash -c "sed -i s/'#ParallelDownloads = 5'/'ParallelDownloads = 6'/g /etc/pacman.conf"
+arch-chroot /mnt /bin/bash -c "sed -i s/'#VerbosePkgLists'/'VerbosePkgLists'/g /etc/pacman.conf"
+arch-chroot /mnt /bin/bash -c "sed -i s/'#Color'/'ILoveCandy'/g /etc/pacman.conf"
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /mnt/etc/pacman.conf
+arch-chroot /mnt /bin/bash -c "sed -i s/'# %wheel ALL=(ALL:ALL) ALL'/'%wheel ALL=(ALL:ALL) ALL'/g /etc/sudoers"
+echo "root:$password" | arch-chroot /mnt chpasswd
+arch-chroot /mnt /bin/bash -c "mkinitcpio -P"
+arch-chroot /mnt /bin/bash -c "pacman -Syy grub grub-btrfs efibootmgr --noconfirm"
+arch-chroot /mnt /bin/bash -c "useradd -m -G wheel -s /bin/bash $username"
+echo "$username:$userpassword" | arch-chroot /mnt chpasswd
+arch-chroot /mnt /bin/bash -c "systemctl enable NetworkManager"
+arch-chroot /mnt /bin/bash -c "${Uefi}"
+arch-chroot /mnt /bin/bash -c "${BIOS}"
+arch-chroot /mnt /bin/bash -c "${BBOOT}"
+arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
+#---------------------------------------------------------------------
+${graphc_drivers}
+${update}
+${desktop}
+${slick} /mnt /bin/bash -c "sed -i s/'#greeter-session=lightdm-slick-greeter'/'greeter-session=lightdm-slick-greeter'/g  /etc/lightdm/lightdm.conf" >/dev/null 2>&1; RETVAL=$?
+arch-chroot /mnt /bin/bash -c "${displaymanager}"
+arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
+arch-chroot /mnt /bin/bash -c "systemctl enable NetworkManager"
+arch-chroot /mnt /bin/bash -c "systemctl enable bluetooth"
+arch-chroot /mnt /bin/bash -c "systemctl enable cups"
+arch-chroot /mnt /bin/bash -c "mkinitcpio -P"
+arch-chroot /mnt /bin/bash -c "grub-mkconfig -o /boot/grub/grub.cfg"
+#------------------------------------------------------------------------
+#
+#                     UMOUNT & REBOOT
+#
+#-------------------------------------------------------------------------
+clear
+echo '
+
+
+
+
+
+
+
+
+
+
+
+
+
+       @ecint <3    The installation has been completed successfully. The computer will be rebooted now.
+
+
+
+
+
+
+
+
+
+
+
+'
+sleep 5
+arch-chroot /mnt /bin/bash -c "exit"
+umount -R /mnt
+clear
+reboot
