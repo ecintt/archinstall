@@ -5,7 +5,7 @@
 Per eseguire lo script
 
 ```bash
-pacman -Syy git ; git clone https://github.com/ecint/archinst.git ; ./archinstall
+pacman -Syy git ; git clone https://github.com/ecintt/archinstall.git ; ./archinstall
 ```
 
 --------------------------------------------
