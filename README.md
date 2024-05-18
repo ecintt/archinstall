@@ -2,7 +2,7 @@
 
 ----------------------------------------
 
-Для запуска скрипта
+Per eseguire lo script
 
 ```bash
 pacman -Syy git ; git clone https://github.com/ecint/archinst.git ; ./archinstall
@@ -10,4 +10,4 @@ pacman -Syy git ; git clone https://github.com/ecint/archinst.git ; ./archinstal
 
 --------------------------------------------
 
-На ошибки в процессе выполнения команды по поводу git - не обращаем внимания .
+We do not pay attention to errors during the execution of the command regarding git.
