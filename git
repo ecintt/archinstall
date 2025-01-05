@@ -23,7 +23,7 @@ read -p "
 
 
 
-                                  -> Enter a value :  " text
+                                  -> Введите значение :  " text
 
 
 sed -i s/'git commit -m'/"git commit -m '$text'"/g updater

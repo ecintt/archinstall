@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/bin/bash ff
 #────────────────────────────────
-#  Version  : Arch Linux Install v.3.0.1
+#  Version  : Arch Linux Install v.3.1
 #           :
-#  Author   : https://t.me/ecint
+#  Author   : Plafv
+#           :
+#  Project  : https://github.com/ecintt/archinstall.git
 #           :
 #  License  : LGPL-3.0 (http://opensource.org/licenses/lgpl-3.0.html)
 #           :
@@ -18,13 +20,25 @@ echo '
 
 
 
-                                                                            @ecint <3
-                                                                        Telegram - @exint
+
+
+                                      <──────────────────────────────────────────────────────────────────────────────>
 
 
 
 
+                                     █████╗ ██████╗  ██████╗██╗  ██╗██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗
+                                    ██╔══██╗██╔══██╗██╔════╝██║  ██║██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║     ██║
+                                    ███████║██████╔╝██║     ███████║██║██╔██╗ ██║███████╗   ██║   ███████║██║     ██║
+                                    ██╔══██║██╔══██╗██║     ██╔══██║██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██║
+                                    ██║  ██║██║  ██║╚██████╗██║  ██║██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗
+                                    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
 
+
+                                                                     Power by Plafv
+
+
+                                       <──────────────────────────────────────────────────────────────────────────────>
 
 
 '
@@ -40,7 +54,7 @@ echo '
 
 
 
-                                                                      ArchInstall v.3.0
+                                                                      ArchInstall v.3.1
 
                                           <─────────────────────────────────────────────────────────────────────────>
 
@@ -56,6 +70,9 @@ echo '
                                             <─────────────────────────────────────────────────────────────────────────>
 '
 sed -i s/'#en_US.UTF-8'/'en_US.UTF-8'/g /etc/locale.gen
+sed -i s/'#ru_RU.UTF-8'/'ru_RU.UTF-8'/g /etc/locale.gen
+echo 'LANG=ru_RU.UTF-8' > /etc/locale.conf
+echo 'KEYMAP=ru' > /etc/vconsole.conf
 echo 'FONT=cyr-sun16' >> /etc/vconsole.conf
 setfont cyr-sun16
 locale-gen >/dev/null 2>&1; RETVAL=$?
@@ -75,32 +92,32 @@ echo '
 
 
 
-                                                          ─▄▀─▄▀
-                                                          ──▀──▀
-                                                          █▀▀▀▀▀█▄
-                                                          █░░░░░█─█     Welcome to the ArchLinux installer !
-                                                          ▀▄▄▄▄▄▀▀
+                                              ─▄▀─▄▀
+                                              ──▀──▀
+                                              █▀▀▀▀▀█▄
+                                              █░░░░░█─█     Добро пожаловать в программу установки ArchLinux !
+                                              ▀▄▄▄▄▄▀▀
                                                 ─────────────────────────────────────────────────────────────────
 
 
-                                                    Attention ! The script does NOT create partitions on the disk, you
+                                                    Внимание !  скрипт НЕ создает разделы на диске , разделы вы
 
-                                          create partitions yourself, so if you have not created partitions yet - create them.
+                                                создаёте сами , поэтому если вы еще не создали разделы - создайте их
 
 
                                               ───────────────────────────────────────────────────────────────────────────
 
 '
     echo -e "
-      \t                                                          -> Skip enter     1    "
+      \t                                                          -> Пропустить введите     1    "
 
     echo -e "
 
-      \t                                                          -> To partition a disk, type   2     "
+      \t                                                          -> Разметить диск введите   2     "
 
     echo -n "
 
-                                                                   -> Enter a value : "
+                                                                   -> Введите значение : "
 
       read main_menu
       case "$main_menu" in
@@ -124,30 +141,30 @@ echo '
 
 
 
-                                                               Welcome to the disk layout menu !
+                                                             Добро пожаловать в меню раметки диска !
 
                                                 . ────────────────────────────────────────────────────────────.
                                                 .                                                             .
                                                 .                                                             .
-                                                .           Disk information will now be displayed            .
+                                                .         Сейчас будет выведена информация о дисках           .
                                                 .                                                             .
-                                                .            Select the disk you want to partition            .
+                                                .          Выберите тот диск который надо разметить           .
                                                 .                                                             .
                                                 .                                                             .
-                                                .      ** Disk name e.g. ( sda , sdb, sdc , nvme0n1 ) **      .
+                                                .    ** Имя диска например ( sda , sdb, sdc , nvme0n1 ) **    .
                                                 .                                                             .
                                                 .                                                             .
                                                 . ────────────────────────────────────────────────────────────.
 '
 sleep 2
 read -t 99999 -n 1 -s -r -p "
-                                                            -> Press Enter to continue <- "
+                                                            -> Нажмите Enter для продолжения <- "
 clear
 fdisk -l
 
 sleep 2
 read -t 99999 -n 1 -s -r -p "
-                                                            -> Press Enter to continue <- "
+                                                            -> Нажмите Enter для продолжения <- "
 clear
 echo '
 
@@ -170,17 +187,17 @@ echo '
                                                .─────────────────────────────────────────────────────────────.
                                                .                                                             .
                                                .                                                             .
-                                               .          Enter the name of the disk to partition            .
+                                               .             Введите имя диска для разметки                  .
                                                .                                                             .
                                                .                                                             .
                                                ──────────────────────────────────────────────────────────────
 '
 read -p "
-                                                              -> Enter a value : " namedisk
+                                                              -> Введите значение : " namedisk
 cfdisk --zero /dev/$namedisk
       esac
 clear
-echo "
+echo '
 
 
 
@@ -189,29 +206,29 @@ echo "
 
 
 
-                                                                 Time zone setting
+                                                                 Настройка часового пояса
 
                                               .──────────────────────────────────────────────────────────────.
                                               .                                                              .
                                               .                                                              .
-                                              .  Setting the region configures the time zone and time        .
+                                              .  Настройка региона выставляет часовой пояс и время согласно  .
                                               .                                                              .
-                                              .                      according to the specified region       .
+                                              .                      указаному региону                       .
                                               .                                                              .
-                                              .  You can look up the name of the region in the list of       .
+                                              .  Название региона можно посмотреть в списке регионов или     .
                                               .                                                              .
-                                              .  regions or enter it manually, if you already know it,      .
+                                              .  ввести вручную , если уже знаете , именно в таком формате   .
                                               .                                                              .
-                                              .                  in this format --> /Europe/Moscow           .
+                                              .                  Пример -->   /Europe/Moscow                 .
                                               .                                                              .
                                               .                                                              .
                                               .──────────────────────────────────────────────────────────────.
-"
-read -p"
-                                                          -> Enter a value : " region
+'
+read -p "
+                                                          -> Введите значение : " region
 
 clear
-echo "
+echo '
 
 
 
@@ -223,33 +240,32 @@ echo "
 
 
 
-                                                    Selecting a Disk for GRUB Installation
+                                                                    Выбор диска для GRUB
 
-                                            .─────────────────────────────────────────────────────────────.
-                                            .                                                             .
-                                            .                                                             .
-                                            .        ** Essential for GRUB loader installation **         .
-                                            .                                                             .
-                                            .                                                             .
-                                            .         Information about the disks will be displayed now   .
-                                            .                                                             .
-                                            .   Choose the disk on which the system will be installed     .
-                                            .                                                             .
-                                            .            For example (sda, sdb, sdc, nvme0n1)             .
-                                            .                                                             .
-                                            .                                                             .
-                                            . ────────────────────────────────────────────────────────────.
-
-"
+                                              .─────────────────────────────────────────────────────────────.
+                                              .                                                             .
+                                              .                                                             .
+                                              .  ** Это важно для дальнейщей установки загрузчика GRUB  **  .
+                                              .                                                             .
+                                              .                                                             .
+                                              .         Сейчас будет выведена информация о дисках           .
+                                              .                                                             .
+                                              .   Выберите тот диск на который будет установлена система    .
+                                              .                                                             .
+                                              .            Например ( sda , sdb, sdc , nvme0n1 )            .
+                                              .                                                             .
+                                              .                                                             .
+                                              . ────────────────────────────────────────────────────────────.
+'
 sleep 2
 read -t 99999 -n 1 -s -r -p "
-                                                           -> Press Enter to continue <- "
+                                                           -> Нажмите Enter для продолжения <- "
 clear
 fdisk -l
 
 sleep 2
 read -t 99999 -n 1 -s -r -p "
-                                                           -> Press Enter to continue <- "
+                                                           -> Нажмите Enter для продолжения <- "
 
 clear
 echo '
@@ -265,22 +281,22 @@ echo '
 
 
 
-                                                            Selecting a Disk for GRUB Installation
+                                                                    Выбор диска для GRUB
 
                                               .─────────────────────────────────────────────────────────────.
                                               .                                                             .
                                               .                                                             .
-                                              .           Enter the name of the disk to partition           .
+                                              .             Введите имя диска для разметки                  .
                                               .                                                             .
-                                              .         ** Essential for GRUB loader installation **        .
+                                              .   ** Это важно для дальнейщей установки загрузчика GRUB **  .
                                               .                                                             .
-                                              .           For example ( sda , sdb, sdc , nvme0n1 )          .
+                                              .         Например ( sda , sdb, sdc , nvme0n1 )               .
                                               .                                                             .
                                               .                                                             .
                                                ──────────────────────────────────────────────────────────────
 '
 read -p "
-                                                               -> Enter a value : " disk
+                                                               -> Введите значение : " disk
 clear
 echo '
 
@@ -295,12 +311,12 @@ echo '
 
 
 
-                                                                  Your SSD or HDD disk
+                                                                  Ваш диск SSD или HDD
 
                                               .─────────────────────────────────────────────────────────────.
                                               .                                                             .
                                               .                                                             .
-                                              .       Choose your option of what kind of disk you have      .
+                                              .           Выберите свой вариант какой у вас диск            .
                                               .                                                             .
                                               .                                                             .
                                                ──────────────────────────────────────────────────────────────
@@ -315,7 +331,7 @@ echo '
 
     echo -n "
 
-                                                           -> Enter a value : "
+                                                           -> Введите значение : "
 
       read main_menu
       case "$main_menu" in
@@ -338,29 +354,29 @@ echo '
 
 
 
-                                                                      Select partition
+                                                                        Выбор разделов
 
                                                 .────────────────────────────────────────────────────────────.
                                                 .                                                            .
                                                 .                                                            .
-                                                .               Enter one of the values 1 or 2               .
+                                                .             Введите одно из значений  1 или  2             .
                                                 .                                                            .
-                                                .           To proceed to mounting the disk partitions       .
+                                                .           Для перехода к монтированию раздов диска         .
                                                 .                                                            .
                                                 .                                                            .
                                                 .────────────────────────────────────────────────────────────.
 '
     echo -e "
 
-      \t                                                -> To mount partitions, enter    1   "
+      \t                                                -> Смонтировать разделы введите    1   "
 
     echo -e "
 
-      \t                                               -> To show a hint about the sections, enter   2   "
+      \t                                               -> Показать подсказку о разделах введите   2   "
 
     echo -n "
 
-                                                           -> Enter a value : "
+                                                           -> Введите значение : "
 
       read main_menu
       case "$main_menu" in
@@ -370,7 +386,7 @@ echo '
 fdisk -l
 sleep 2
 read -t 99999 -n 1 -s -r -p "
-                                                          -> Press Enter to continue <- "
+                                                          -> Нажмите Enter для продолжения <- "
       esac
 
 echo '
@@ -384,21 +400,21 @@ echo '
 
 
 
-                                                                    Select partition
+                                                                        Выбор разделов
 
                                      .────────────────────────────────────────────────────────────────────────────────.
                                      .                                                                                .
-                                     .                          Enter the disk partitions                             .
+                                     .                             Введите разделы диска                              .
                                      .                                                                                .
-                                     .                   (Root- Root)  (Boot- Bootable) (Swap- Swap)                  .
-                                     .                                                                                .
-                                     .                                                                                .
-                                     .                   For example ( sda2, sdb2, sdc2 , nvme0n1p2 )                 .
+                                     .             (Root- Корневой)  (Boot- Загрузочный) (Swap- Подкачка)             .
                                      .                                                                                .
                                      .                                                                                .
-                                     . ** Attention! If you have not created a swap or home, leave the field empty.** .
+                                     .                  Например ( sda2, sdb2, sdc2 , nvme0n1p2 )                     .
                                      .                                                                                .
-                                     . For Regular Bios, and installation in one partition, leave the boot field empty.
+                                     .                                                                                .
+                                     .   ** Внимание ! Если вы не создали swap или home то оставьте поле пустым **    .
+                                     .                                                                                .
+                                     .!!! Для обычного Bios, и установки в один раздел оставьте поле boot пустым !!!! .
                                      .                                                                                .
                                      .────────────────────────────────────────────────────────────────────────────────.
 
@@ -427,38 +443,38 @@ echo '
 
 
 
-                                                            Selecting the Boot Partition file system
+                                                              Выбор файловой системы Boot раздела
 
                                                 .─────────────────────────────────────────────────────────────.
                                                 .                                                             .
                                                 .                                                             .
-                                                .        Select the file system of the boot partition         .
+                                                .      Выберите файловую систему загрузочного  boot раздела   .
                                                 .                                                             .
-                                                .  According to your Bios version (regular old BIOS or UEFI)  .
+                                                .  Согласно вашей версии Bios (обычный стрый BIOS или UEFI)   .
                                                 .                                                             .
-                                                .   FAT32 format for UEFI . For a regular Ext4 or Ext2 BIOS   .
+                                                .   Для UEFI формат FAT32 . Для обычнго BIOS Ext4 или Ext2    .
                                                 .                                                             .
                                                 .                                                             .
                                                 .─────────────────────────────────────────────────────────────.
 '
 echo -e "\t
-                                                     -> For UEFI, enter     (  1  )  "
+                                                     -> Для UEFI введите     (  1  )  "
 echo -e "\t
 
-                                                     -> Do not format enter    (  2  )
+                                                     -> Не форматировать  введите     (  2  )
 
-                                                      ( To install on the same DOS/MBR partition or next to Windows )"
+                                                      ( Для утсановки в один раздел DOS/MBR или рядом с Windows )"
 echo -e "\t
 
 
-                                                     -> For a regular Bios, format to Ext4, enter   (  3  ) "
+                                                     -> Для обычного Bios форматировать в Ext4 введите   (  3  ) "
 echo -e "\t
 
-                                                     -> For a regular Bios, format to Ext2, enter    (  4  ) "
+                                                     -> Для обычного Bios фоматировать в Ext2 введиет    (  4  ) "
 echo -n "
 
 
-                                                         -> Enter a value : "
+                                                         -> Введите значение : "
 read main_menu
       case "$main_menu" in
          "1" ) clear ; mkfs.vfat -F32 /dev/$boot
@@ -485,30 +501,30 @@ echo '
 
 
 
-                                                           Selecting the file system of the root partition
+                                                              Выбор файловой системы корневого раздела
 
                                                       .───────────────────────────────────────────────────────.
                                                       .                                                       .
                                                       .                                                       .
-                                                      .      Select the file system of the Root partition     .
+                                                      .   Выберите файловую систему корневого Root раздела    .
                                                       .                                                       .
-                                                      .                     Btrfs or Ext4                     .
+                                                      .                      Btrfs или Ext4                   .
                                                       .                                                       .
                                                       .                                                       .
                                                       .───────────────────────────────────────────────────────.
 
-                                                              -> To skip this step, press Enter <-
+                                                          -> Чтобы пропустить это шаг нажмите Enter <-
 '
 echo -e "\t
 
-                                                           -> To format in Btrfs, enter    1    "
+                                                           -> Форматировать в Btrfs введите    1    "
 echo -e "\t
 
 
-                                                           -> To format in Ext4, enter    2    "
+                                                           -> Форматировать в Ext4 введите    2    "
 echo -n "
 
-                                                              -> Enter a value : "
+                                                              -> Введите значение : "
 read main_menu
       case "$main_menu" in
          "1" ) clear ; mkfs.btrfs -f /dev/$root
@@ -532,30 +548,30 @@ echo '
 
 
 
-                                                         Selecting the file system of the Home partition
+                                                       Home раздел , выбор файловой системы Home раздела
 
                                                     .───────────────────────────────────────────────────────.
                                                     .                                                       .
                                                     .                                                       .
-                                                    .     Select the file system of the Home partition      .
+                                                    .       Выберите файловую систему Home раздела          .
                                                     .                                                       .
-                                                    .                    Btrfs or Ext4                      .
+                                                    .                      Btrfs или Ext4                   .
                                                     .                                                       .
                                                     .                                                       .
                                                     .───────────────────────────────────────────────────────.
 
-                                                              -> To skip this step, press Enter <-
+                                                         -> Чтобы пропустить это шаг нажмите Enter <-
 '
 echo -e "\t
 
-                                                          -> To format in Btrfs, enter    1    "
+                                                          -> Форматировать в Btrfs введите    1    "
 echo -e "\t
 
 
-                                                          -> To format in Ext4, enter    2    "
+                                                          -> Форматировать в Ext4 введите    2    "
 echo -n "
 
-                                                             -> Enter a value : "
+                                                             -> Введите значение : "
 read main_menu
       case "$main_menu" in
          "1" ) clear ; mkfs.btrfs -f /dev/$home
@@ -575,30 +591,30 @@ echo '
 
 
 
-                                                                       Mounting partitions
+                                                                     Монтирование разделов
 
                                                     .───────────────────────────────────────────────────────.
                                                     .                                                       .
                                                     .                                                       .
-                                                    .          Select one of the mounting options           .
+                                                    .       Выберите один из вариантов монтирования         .
                                                     .                                                       .
                                                     .                                                       .
                                                     .───────────────────────────────────────────────────────.
 '
 echo -e "\t
 
-                                                         ->    Btrfs ( WITHOUT home ) enter  (  1  )   "
+                                                         ->    Btrfs  ( БЕЗ home ) введите  (  1  )   "
 echo -e "\t
 
 
-                                                         ->    Ext4 ( WITHOUT home ) enter   (  2  )   "
+                                                         ->    Ext4   ( БЕЗ home ) введите   (  2  )   "
 echo -e "\t
 
 
-                                                          -> Mount Home enter   (  3  )   "
+                                                          -> Смонтировать Home введите   (  3  )   "
 
 echo -n "
-                                                            -> Enter a value : "
+                                                            -> Введите значение : "
 
 read main_menu
       case "$main_menu" in
@@ -647,27 +663,27 @@ mkdir /mnt/boot
 
 
 
-                                                                 Mounting the home partition
+                                                             Монтирование  домашнего ( home ) раздела
 
                                                     .───────────────────────────────────────────────────────.
                                                     .                                                       .
                                                     .                                                       .
-                                                    .           Select one of the mounting options          .
+                                                    .       Выберите один из вариантов монтирования         .
                                                     .                                                       .
                                                     .                                                       .
                                                     .───────────────────────────────────────────────────────.
 '
 echo -e "\t
 
-                                                             -> Mount Home in Btrfs    1    "
+                                                             -> Смонтировать Home в Btrfs    1    "
 echo -e "\t
 
 
-                                                             -> Mount Home in Ext4     2    "
+                                                             -> Смонтировать Home в Ext4     2    "
 
 
 echo -n "
-                                                                -> Enter a value : "
+                                                                -> Введите значение : "
 
 read main_menu
       case "$main_menu" in
@@ -726,37 +742,37 @@ echo '
 
 
 
-                                                                    Mounting a boot partition
+                                                                   Монтирование boot раздела
 
-                                                  .───────────────────────────────────────────────────────────.
-                                                  .                                                           .
-                                                  .                                                           .
-                                                  .               Mounting the boot partition!                .
-                                                  .                                                           .
-                                                  . Select one of the options for mounting the boot partition .
-                                                  .                                                           .
-                                                  .       For a regular bios (NOT UEFI), enter   2            .
-                                                  .                                                           .
-                                                  .             For the UEFI bios, enter   1                  .
-                                                  .                                                           .
-                                                  .      Without the DOS/MBR boot partition, enter     3      .
-                                                  .                                                           .
-                                                  .                                                           .
-                                                  .───────────────────────────────────────────────────────────.
+                                                  .──────────────────────────────────────────────────────────.
+                                                  .                                                          .
+                                                  .                                                          .
+                                                  .          Монтирование загрузочного раздела !             .
+                                                  .                                                          .
+                                                  .   Выберите один из варинтов монтирования boot раздела    .
+                                                  .                                                          .
+                                                  .       Для обычного биоса (НЕ UEFI) введите   2           .
+                                                  .                                                          .
+                                                  .             Для UEFI биоса , введите   1                 .
+                                                  .                                                          .
+                                                  .          Без boot раздела DOS/MBR введите     3          .
+                                                  .                                                          .
+                                                  .                                                          .
+                                                  .──────────────────────────────────────────────────────────.
 '
 echo -e "\t
-                                                             -> For UEFI or EFI, enter   (  1  )    "
+                                                             -> Для UEFI или EFI введите   (  1  )    "
 echo -e "\t
 
-                                                             -> For a regular Bios, enter  (  2  ) "
+                                                             -> Для обычного Bios введите  (  2  ) "
 
 echo -e "\t
-                                                             -> Without a DOS/MBR boot partition   (  3  )
+                                                             -> Без boot раздела DOS/MBR   (  3  )
 
-                                                            (If you install everything in one partition for MBR) "
+                                                            (Если вы устанавливаете все в один радел для  MBR ) "
 echo -n "
 
-                                                               -> Enter a value : "
+                                                               -> Введите значение : "
 read main_menu
       case "$main_menu" in
          "1" )
@@ -788,21 +804,21 @@ echo '
 
 
 
-                                                                      The root password
+                                                                          Парль root
 
                                                  .───────────────────────────────────────────────────────────.
                                                  .                                                           .
                                                  .                                                           .
-                                                 .                 Write the Root password !                 .
+                                                 .                   Укажите парль Root !                    .
                                                  .                                                           .
-                                                 .             Attention! Remember the "root" login          .
+                                                 .          Внимание ! Запомните логин рут , здесь - root    .
                                                  .                                                           .
-                                                 .              The password that you write now              .
+                                                 .              И пароль тот который вы щас зададите         .
                                                  .                                                           .
                                                  .───────────────────────────────────────────────────────────.
 '
 read -p "
-                                                           -> Enter the root password :  " password
+                                                           -> Введите пароль root :  " password
 clear
 echo '
 
@@ -818,18 +834,18 @@ echo '
 
 
 
-                                                                          User account
+                                                                  Учетная запись пользователя
 
                                                  .───────────────────────────────────────────────────────────.
                                                  .                                                           .
                                                  .                                                           .
-                                                 .                 Enter your account name !!!               .
+                                                 .           Введите имя вашей учетной записи !!!            .
                                                  .                                                           .
                                                  .                                                           .
                                                  .───────────────────────────────────────────────────────────.
 '
 read -p "
-                                                       -> Enter the account name :  " username
+                                                       -> Введите имя учетной записи :  " username
 clear
 echo '
 
@@ -845,18 +861,18 @@ echo '
 
 
 
-                                                                The password of the user account
+                                                               Парль учетной записи пользователя
 
                                                  .───────────────────────────────────────────────────────────.
                                                  .                                                           .
                                                  .                                                           .
-                                                 .               Enter your account password !!!             .
+                                                 .           Укажите парль вашей учетной записи !!!          .
                                                  .                                                           .
                                                  .                                                           .
                                                  .───────────────────────────────────────────────────────────.
 '
 read -p "
-                                                       -> Enter the user's password :  " userpassword
+                                                       -> Введите пароль пользователя :  " userpassword
 clear
 
 echo '
@@ -869,18 +885,18 @@ echo '
 
 
 
-                                                                    Choosing the Linux core
+                                                                        Выбор ядра системы
 
                                                 .──────────────────────────────────────────────────────────────.
                                                 .                                                              .
                                                 .                                                              .
-                                                .  Select one of the kernel options to install the system :    .
+                                                .  Выберите один из варинтов ядра ,для установки системы :     .
                                                 .                                                              .
-                                                .   -> With a regular Linux kernel - введите 1                       .
+                                                .   -> С обычным ядром Linux - введите 1                       .
                                                 .                                                              .
-                                                .   -> With a productive Linux-zen kernel - введите 2          .
+                                                .   -> C производительным ядром Linux-zen - введите 2          .
                                                 .                                                              .
-                                                .   -> With Linux-lts enhanced stability kernel - введите 3    .
+                                                .   -> С ядром повышеной стабильности Linux-lts - введите 3    .
                                                 .                                                              .
                                                 .                                                              .
                                                 .──────────────────────────────────────────────────────────────.
@@ -895,7 +911,7 @@ echo -e "\t
                                                                      -> Linux-lts ( 3 )"
 echo -n "
 
-                                                                     -> Enter a value : "
+                                                                     -> Введите значение : "
 read main_menu
       case "$main_menu" in
 
@@ -923,36 +939,36 @@ echo '
                               ___________________¶¶
                               __________________¶¶
                               _________________¶¶
-                              ________________¶¶                     Welcome to the desktop setup menu
+                              ________________¶¶              Добро пожаловать в меню установки рабочего стола
                               _______________¶¶
-                              ____$$$$$$$$$$$$$$$$$$                          (graphical shell)
-                              _____$_______________$       ────────────────────────────────────────────────────────>
+                              ____$$$$$$$$$$$$$$$$$$                      (графическая облочка)
+                              _____$_______________$       ────────────────────────────────────────────────────>
                               ______$________ZZZZ$
                               _______$_____ZZZZZ$
                               ________$__ZZZZZZ$
-                              _________$ZZZZZZ$             Here you can select the drivers for your graphics card
+                              _________$ZZZZZZ$                Здесь вы можете выбрать драйвера для своей видеокарты
                               __________$ZZZZ$
                               ___________$ZZ$
-                              ____________$$               ────────────────────────────────────────────────────────>
+                              ____________$$                ────────────────────────────────────────────────────────>
                               ___________ $$$
                               __________$$$$$$
-                              ________$$$$$$$$$$               And install the graphical shell ( desktop )
+                              ________$$$$$$$$$$               И установить графическую оболочку ( рабочий стол )
                               _____$$$$$$$$$$$$$$
 
                            ────────────────────────────────────────────────────────────────────────────────────────────────────>
 '
     echo -e "
 
-      \t                                             -> To install the graphical shell, enter     1     "
+      \t                                             -> Установить графическую оболочку введите     1     "
 
 
     echo -e "
 
-      \t                                             -> DO NOT install the graphical shell.    2     "
+      \t                                             -> НЕ устанавливать графическую оболочку введите     2     "
 
 
     echo -n "
-                                                             -> Enter a value : "
+                                                             -> Введите значение : "
 
       read main_menu
       case "$main_menu" in
@@ -964,43 +980,43 @@ echo '
 
 
 
-                                                                      Video Card Drivers
+                                                                     Драйвера видеокарты
 
                                              .─────────────────────────────────────────────────────────────────.
                                              .                                                                 .
                                              .                                                                 .
-                                             .         Welcome to the graphics driver installation menu        .
+                                             .     Добро пожаловать в меню установки графических драйверов     .
                                              .                                                                 .
-                                             .       The drivers for your graphics card will be installed      .
+                                             .  На этом этапе будут установлены драйверы для вашей видеокарты  .
                                              .                                                                 .
-                                             .        Then there will be a selection of graphical shells!      .
+                                             .      Далее вы попадете в меню выбора графических оболочек!      .
                                              .                                                                 .
                                              .                                                                 .
                                              .─────────────────────────────────────────────────────────────────.
 
 '
 echo -e "\t
-                                                           -> For graphics Intel enter ( 1 ) "
+                                                           -> Для графики Intel введите ( 1 ) "
 echo -e "\t
 
 
-                                                           -> For graphics AMD enter   ( 2 )  "
+                                                           -> Для графики AMD введите   ( 2 )  "
 
 echo -e "\t
 
-                                                           -> For graphics NVIDIA enter ( 3 ) "
+                                                           -> Для графики NVIDIA введите ( 3 ) "
 
 echo -e "\t
 
-                                                           -> Manual driver installation Nvidia ( 4 ) "
+                                                           -> Ручная установка драйвера Nvidia ( 4 ) "
 
 echo -e "\t
 
-                                                          -> To install the hybrid graphics driver
-                                                            For example INTEL + NVIDIA , AMD + NVIDIA и т.д  ( 5 ) "
+                                                          -> Для установки драйвера гибридной графики
+                                                            Например INTEL + NVIDIA , AMD + NVIDIA и т.д  ( 5 ) "
 echo -n "
 
-                                                            -> Enter a value : "
+                                                            -> Введите значение : "
 read main_menu
       case "$main_menu" in
          "1" ) graphc_drivers='pacstrap -i /mnt mesa mesa-demos xf86-video-intel lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader network-manager-applet libva-intel-driver lib32-libva-intel-driver --noconfirm'
@@ -1022,44 +1038,41 @@ echo '
 
 
 
-                                                      Welcome to the NVIDIA driver installation menu
+                                                    Добро пожаловать в меню установки драйвера NVIDIA
 
-                                                .───────────────────────────────────────────────────────.
-                                                .                                                       .
-                                                .       There are two options for installing drivers    .
-                                                .                                                       .
-                                                .   Open source driver and proprietary driver           .
-                                                .                                                       .
-                                                .   The open source driver is better for older          .
-                                                .                                                       .
-                                                .   graphics cards, up to the Kepler architecture,      .
-                                                .                                                       .
-                                                .   while the proprietary driver is better for newer    .
-                                                .                                                       .
-                                                .   graphics cards. Choose your option                  .
-                                                .                                                       .
-                                <───────────────────────────────────────────────────────────────────────────────────>
+                                                 .───────────────────────────────────────────────────────.
+                                                 .                                                       .
+                                                 .       Здесь два варинта установки драйверов           .
+                                                 .                                                       .
+                                                 .   Open source драйвер  и проприетарный драйвер        .
+                                                 .                                                       .
+                                                 .   Опенсоурс драйвер лучше для видеокарт старых ,      .
+                                                 .                                                       .
+                                                 .  до архитектуры Kepler , а для новых видеокарт лучше  .
+                                                 .                                                       .
+                                                 .    проприетарный драйвер . Выберите свой варинт       .
+                                                 .                                                       .
+                                   <───────────────────────────────────────────────────────────────────────────────────>
 
-                              Installing the driver does not guarantee that everything will work well on the first try.
+                                       Установка драйвера не гарантирует что все с первого раза запуститься хорошо.
 
-                                        Nvidia does not disclose its code for writing proper drivers,
+                                              Nvidia не открывает свой код для написания нормальных драйверов ,
 
-                                therefore, it is impossible to guarantee that the driver will work after installation!!!
+                                        поэтому гарантировать что драйвер заведется после установки невозможно !!!
 
-                                <───────────────────────────────────────────────────────────────────────────────────>
-
+                                    <────────────────────────────────────────────────────────────────────────────────>
 '
 echo -e "\t
 
 
-                                                      ->  Install a proprietary driver     1     "
+                                                      ->  Установить проприетарный драйвер     1     "
 echo -e "\t
 
 
-                                                       ->  Install the Open source driver      2    "
+                                                       ->  Установить Open source драйвер      2    "
 echo -n "
 
-                                                          -> Enter a value : "
+                                                          -> Введите значение : "
 read main_menu
       case "$main_menu" in
        "1" )
@@ -1084,39 +1097,39 @@ read main_menu
 #
 #
 #
-#                                               Welcome to the NVIDIA Drivers Manual Installation Menu
+#                                               Добро пожаловать в меню ручной установки драйверов NVIDIA
 #
 #                                          <─────────────────────────────────────────────────────────────────>
 #
-#                                           Here you will be shown a list of Nvidia drivers available for installation
+#                                           Здесь вам будет показан список доступных для установки драйверов Nvidia
 #
-#                                              Next, you will need to enter the name of the driver to install
+#                                              Далее вам надо будет ввести назание этого драйвера для установки
 #
-#                                               For example, the driver video-nvidia, and type it in the input field
+#                                               Например драйвер  video-nvidia , и прописать в поле для ввода
 #
 #                                    <───────────────────────────────────────────────────────────────────────────────────>
 #
-#                                   Installing the driver does not guarantee that everything will work well on the first try.
+#                                         Установка драйвера не гарантирует что все с первого раза запуститься хорошо.
 #
-#                                              Nvidia does not disclose its code for writing proper drivers,
+#                                              Nvidia не открывает свой код для написания нормальных драйверов ,
 #
-#                                   therefore, it is impossible to guarantee that the driver will work after installation!!!
+#                                          поэтому гарантировать что драйвер заведется после установки невозможно !!!
 #
 #                                      <────────────────────────────────────────────────────────────────────────────────>
 #'
 #echo -e "\t
 #
-#                                                             ->   Continue    1     "
+#                                                             ->   Продолжить    1     "
 #
 #echo -n "
 #
-#                                                             -> Enter a value : "
+#                                                             -> Введите значение : "
 #read main_menu
 #      case "$main_menu" in
 #         "1" )
 #         clear ; mhwd --list
 #         read -p "
-#                                                           -> Enter a value : " namedriver
+#                                                           -> Введите значение : " namedriver
 #
 #         hwddriver='mhwd --install pci $namedriver'
 #      esac
@@ -1137,19 +1150,15 @@ echo '
 
 
 
-                                             Welcome to the Hybrid Graphics Driver Installation Menu
+                                            Добро пожаловать в меню установки драйверов для гибридной графики
 
                                   .─────────────────────────────────────────────────────────────────────────────────────.
                                   .                                                                                     .
-                                  . Installing the Nvidia driver does not guarantee that everything will work well on   .
+                                  . Установка драйвера Nvidia не гарантирует ,что все с первого раза запуститься хорошо .
                                   .                                                                                     .
-                                  . the first try.                                                                     .
+                                  .      Nvidia не открывает свой код для написания нормальных драйверов ,              .
                                   .                                                                                     .
-                                  . Nvidia does not disclose its code for writing proper drivers,                        .
-                                  .                                                                                     .
-                                  . therefore, it is impossible to guarantee that the driver will work after            .
-                                  .                                                                                     .
-                                  . installation!!!                                                                     .
+                                  .    поэтому гарантировать что драйвер заведется после установки невозможно !!!       .
                                   .                                                                                     .
                                    ──────────────────────────────────────────────────────────────────────────────────────
 '
@@ -1158,20 +1167,20 @@ echo -e "\t
                                                        ->  INTEL + AMD      1     "
 
 echo -e "\t
-                                                       ->  INTEL + NVIDIA ( Proprietary driver  Nvidia )     2    "
+                                                       ->  INTEL + NVIDIA ( Проприетарный драйвер  Nvidia )     2    "
 echo -e "\t
 
-                                                       ->  INTEL + NVIDIA ( Open source driver Nvidia )     3    "
+                                                       ->  INTEL + NVIDIA ( Open source драйвер Nvidia )     3    "
 
 echo -e "\t
-                                                       ->  AMD + NVIDA   ( Proprietary driver  Nvidia )    4    "
+                                                       ->  AMD + NVIDA   ( Проприетарный драйвер  Nvidia )    4    "
 
 echo -e "\t
-                                                       ->  AMD + NVIDA   ( Open source driver Nvidia )    5    "
+                                                       ->  AMD + NVIDA   ( Open source драйвер Nvidia )    5    "
 echo -n "
 
 
-                                                        -> Enter a value : "
+                                                        -> Введите значение : "
 read main_menu
       case "$main_menu" in
        "1" )
@@ -1206,52 +1215,52 @@ echo '
 
 
 
-                                                                           Graphical shell
+                                                                       Графическая оболочка
 
                                                     .────────────────────────────────────────────────────────.
                                                     .                                                        .
                                                     .                                                        .
-                                                    .              Now choose one of the options             .
+                                                    .            Теперь выберите один из вариантов           .
                                                     .                                                        .
-                                                    .         To install the graphical shell you need        .
+                                                    .      Для установки нужной вам графической оболочки     .
                                                     .                                                        .
                                                     .                                                        .
                                                     .────────────────────────────────────────────────────────.
 '
 echo -e "\t
-                                                            -> To install KDE enter ( 1 ) "
+                                                            -> Для установки KDE введите ( 1 ) "
 echo -e "\t
 
-                                                            -> To install GNOME enter ( 2 ) "
+                                                            -> Для установки GNOME введите ( 2 ) "
 echo -e "\t
 
-                                                            -> To install XFCE enter ( 3 ) "
+                                                            -> Для установки XFCE введите ( 3 ) "
 echo -e "\t
 
-                                                             -> To install I3 enter ( 4 ) "
+                                                             -> Для установки I3 введите ( 4 ) "
 echo -e "\t
 
-                                                             -> To install Lxqt enter ( 5 ) "
+                                                             -> Для установки Lxqt введите ( 5 ) "
 echo -e "\t
 
-                                                          -> To install KDE lightweight enter ( 6 )
+                                                          -> Для установки KDE облегченная введите ( 6 )
 
-                                                                Without a package kde-applicatios          "
+                                                                Без пакета    kde-applicatios          "
 echo -e "\t
 
-                                                          -> To install GNOME lightweight enter ( 7 )
+                                                          -> Для установки GNOME облегченная введите ( 7 )
 
-                                                                Without a package gnome-extra                   "
+                                                                Без пакета gnome-extra                   "
 echo -e "\t
 
-                                                            -> To install Cinnamon enter ( 8 ) "
+                                                            -> Для установки Cinnamon введите ( 8 ) "
 echo -e "\t
 
-                                                             -> To install MATE enter ( 9 ) "
+                                                             -> Для установки MATE введите ( 9 ) "
 echo -n "
 
 
-                                                               -> Enter a value : "
+                                                               -> Введите значение : "
 read main_menu
       case "$main_menu" in
          "1" )
@@ -1351,9 +1360,9 @@ echo '
 ─▒▒▒▒▒▒▒──█████▄────── ╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
 ─▒─▒─▒─▒───▀████▀─────────────────────────────────────────────────────────────────|
 
-                       Please wait, the package download is being configured,
+                       Пожалуйста пдождите , идет настройка скачивания пакетов,
 
-                                  It will take a couple of moments. ) .......
+                                  это займет пару мнгновений ) .......
 
               ─────────────────────────────────────────────────────────────────────────────────────|
 '
@@ -1368,9 +1377,10 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash -c "ln -sf /usr/share/zoneinfo/$region /etc/localtime"
 arch-chroot /mnt /bin/bash -c "hwclock --systohc"
 arch-chroot /mnt /bin/bash -c "sed -i s/'#en_US.UTF-8'/'en_US.UTF-8'/g /etc/locale.gen"
+arch-chroot /mnt /bin/bash -c "sed -i s/'#ru_RU.UTF-8'/'ru_RU.UTF-8'/g /etc/locale.gen"
 arch-chroot /mnt /bin/bash -c "locale-gen"
-arch-chroot /mnt /bin/bash -c "echo 'LANG=en_US.UTF-8' > /etc/locale.conf"
-arch-chroot /mnt /bin/bash -c "echo 'KEYMAP=us' > /etc/vconsole.conf"
+arch-chroot /mnt /bin/bash -c "echo 'LANG=ru_RU.UTF-8' > /etc/locale.conf"
+arch-chroot /mnt /bin/bash -c "echo 'KEYMAP=ru' > /etc/vconsole.conf"
 arch-chroot /mnt /bin/bash -c "echo 'FONT=cyr-sun16' >> /etc/vconsole.conf"
 arch-chroot /mnt /bin/bash -c "echo 'ARCH' > /etc/hostname"
 arch-chroot /mnt /bin/bash -c "echo '127.0.0.1 localhost' > /etc/hosts"
@@ -1423,16 +1433,21 @@ echo '
 
 
 
-       @ecint <3    The installation has been completed successfully. The computer will be rebooted now.
-
-
-
-
-
-
-
-
-
+───────────────────────────────────────────────────────────────────>
+░░░░░░░░░░░░▄▄░░░░░░░░░
+░░░░░░░░░░░█░░█░░░░░░░░
+░░░░░░░░░░░█░░█░░░░░░░░
+░░░░░░░░░░█░░░█░░░░░░░░
+░░░░░░░░░█░░░░█░░░░░░░░
+███████▄▄█░░░░░██████▄░░
+▓▓▓▓▓▓█░░░░░░░░░░░░░░█░
+▓▓▓▓▓▓█░░░░░░░░░░░░░░█░              Спасибо что установили наш archinstall сейчас будет reboot    PC
+▓▓▓▓▓▓█░░░░░░░░░░░░░░█░
+▓▓▓▓▓▓█░░░░░░░░░░░░░░█░
+▓▓▓▓▓▓█░░░░░░░░░░░░░░█░
+▓▓▓▓▓▓█████░░░░░░░░░█░░
+██████▀░░░░▀▀██████▀░░░░
+  <─────────────────────────────────────────────────────────────────────────────────────────────────────────>
 
 
 '
