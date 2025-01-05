@@ -5,7 +5,7 @@
 Для запуска скрипта
 
 ```bash
-pacman -Syy git ; git clone https://github.com/linuxshef/archinstall.git ; ./archinstall
+pacman -Syy git ; git clone https://github.com/linuxshef/ecintt.git ; ./archinstall
 ```
 
 --------------------------------------------
